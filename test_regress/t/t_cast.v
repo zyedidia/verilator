@@ -24,6 +24,11 @@ module t;
 
    // bug925
    localparam [6:0] RESULT = 7'((6*9+92)%96);
+   // bug2070
+   logic [511:0] array;
+   logic [63:0] slice;
+   localparam ARRAY_SLICE = 64;
+   assign slice = array[(3'(3) - 3'(1)) * ARRAY_SLICE +: ARRAY_SLICE];
 
    logic signed [14:0] samp0 = 15'h0000;
    logic signed [14:0] samp1 = 15'h0000;
