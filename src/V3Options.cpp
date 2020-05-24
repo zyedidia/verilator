@@ -833,6 +833,7 @@ void V3Options::parseOptsList(FileLine* fl, const string& optdir, int argc, char
             else if (!strcmp(sw, "-build"))                     { m_build = true; }
             else if (!strcmp(sw, "-cc"))                        { m_outFormatOk = true; m_systemC = false; }
             else if ( onoff (sw, "-cdc", flag/*ref*/))          { m_cdc = flag; }
+            else if ( onoff (sw, "-copy-runtime", flag/*ref*/)) { m_copyRuntime = true; }
             else if ( onoff (sw, "-coverage", flag/*ref*/))     { coverage(flag); }
             else if ( onoff (sw, "-coverage-line", flag/*ref*/)){ m_coverageLine = flag; }
             else if ( onoff (sw, "-coverage-toggle", flag/*ref*/)){ m_coverageToggle = flag; }
@@ -1505,6 +1506,7 @@ void V3Options::showVersion(bool verbose) {
     cout << "    SYSTEMC_INCLUDE    = " << DEFENV_SYSTEMC_INCLUDE << endl;
     cout << "    SYSTEMC_LIBDIR     = " << DEFENV_SYSTEMC_LIBDIR << endl;
     cout << "    VERILATOR_ROOT     = " << DEFENV_VERILATOR_ROOT << endl;
+    cout << "    COPY_RUNTIME_DEFAULT = " << COPY_RUNTIME_DEFAULT << endl;
 
     cout << endl;
     cout << "Environment:\n";
@@ -1532,6 +1534,7 @@ V3Options::V3Options() {
     m_cdc = false;
     m_cmake = false;
     m_context = true;
+    m_copyRuntime = COPY_RUNTIME_DEFAULT;
     m_coverageLine = false;
     m_coverageToggle = false;
     m_coverageUnderscore = false;

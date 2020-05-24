@@ -155,8 +155,10 @@ inline void V3FileDependImp::writeDepend(const string& filename) {
         if (iter->target()) { *ofp << iter->filename() << " "; }
     }
     *ofp << " : ";
-    *ofp << v3Global.opt.bin();
-    *ofp << " ";
+    if (!v3Global.opt.copyRuntime()) {
+        *ofp << v3Global.opt.bin();
+        *ofp << " ";
+    }
 
     for (std::set<DependFile>::iterator iter = m_filenameList.begin();
          iter != m_filenameList.end(); ++iter) {
@@ -329,6 +331,81 @@ void V3File::createMakeDir() {
         V3Os::createDir(v3Global.opt.makeDir());
     }
 }
+
+void V3File::copyFile(const string& from, const string& to) {
+    std::ifstream  src(from, std::ios::binary);
+    std::ofstream  dst(to,   std::ios::binary);
+
+    if (!src.is_open()) {
+        v3error("Cannot open file " + from);
+    }
+
+    dst << src.rdbuf();
+}
+
+void V3File::copyFiles(const string& from, const string& to, const char *files[]) {
+    V3Os::createDir(to);
+
+    for (int i = 0; files[i]; ++i) {
+        copyFile(from + files[i], to + files[i]);
+    }
+}
+
+void V3File::copyRuntimeFiles() {
+    V3Os::createDir(v3Global.opt.makeDir() + "/vlt-runtime/");
+
+    const char* files[] = {
+        "verilated.mk",
+        "verilated_config.h",
+        "verilated.h",
+        "verilated.cpp",
+        "verilated_dpi.h",
+        "verilated_dpi.cpp",
+        "verilatedos.h",
+        "verilated_heavy.h",
+        "verilated_imp.h",
+        "verilated_sym_props.h",
+        "verilated_syms.h",
+        "verilated_vcd_c.h",
+        "verilated_vcd_c.cpp",
+        "verilated_fst_c.h",
+        "verilated_fst_c.cpp",
+        "verilated_trace.h",
+        "verilated_trace_imp.cpp",
+        "verilated_intrinsics.h",
+        0
+    };
+
+    string srcdir = V3Options::getenvVERILATOR_ROOT() + "/include/";
+    string dstdir = v3Global.opt.makeDir() + "/vlt-runtime/include/";
+    copyFiles(srcdir, dstdir, files);
+
+    V3Os::createDir(dstdir + "vltstd");
+    copyFile(srcdir + "vltstd/svdpi.h", dstdir + "vltstd/svdpi.h");
+
+    string srcbindir = V3Options::getenvVERILATOR_ROOT() + "/bin/";
+    string dstbindir = v3Global.opt.makeDir() + "/vlt-runtime/bin/";
+    V3Os::createDir(dstbindir);
+    copyFile(srcbindir + "verilator_includer", dstbindir + "verilator_includer");
+
+    const char* gtkw_files[] = {
+        "fastlz.c",
+        "fastlz.h",
+        "fst_config.h",
+        "fstapi.c",
+        "fstapi.h",
+        "lz4.c",
+        "lz4.h",
+        "wavealloca.h",
+        0
+    };
+
+    string srcgtkwdir = V3Options::getenvVERILATOR_ROOT() + "/include/gtkwave/";
+    string dstgtkwdir = v3Global.opt.makeDir() + "/vlt-runtime/include/gtkwave/";
+
+    copyFiles(srcgtkwdir, dstgtkwdir, gtkw_files);
+}
+
 
 //######################################################################
 // VInFilterImp

@@ -59,6 +59,20 @@ AC_ARG_ENABLE([tcmalloc],
               [CFG_WITH_TCMALLOC=check;])
 AC_MSG_RESULT($CFG_WITH_TCMALLOC)
 
+# Flag to copy runtime library files by default
+AC_MSG_CHECKING(whether to copy runtime library files to the output)
+AC_ARG_ENABLE([copy-runtime-files-default],
+              [AS_HELP_STRING([--enable-copy-runtime-files-default],
+                              [Copy runtime files by default])],
+              [case "${enableval}" in
+                yes) CFG_COPY_RUNTIME_DEFAULT=true ;;
+                no)  CFG_COPY_RUNTIME_DEFAULT=false ;;
+                *)   AC_MSG_ERROR([bad value '${enableval}' for --copy-runtime-files-default]) ;;
+               esac],
+              [CFG_COPY_RUNTIME_DEFAULT=false;])
+AC_SUBST(CFG_COPY_RUNTIME_DEFAULT)
+AC_MSG_RESULT($CFG_COPY_RUNTIME_DEFAULT)
+
 # Special Substitutions - CFG_WITH_DEFENV
 AC_MSG_CHECKING(whether to use hardcoded paths)
 AC_ARG_ENABLE([defenv],

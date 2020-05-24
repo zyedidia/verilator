@@ -500,7 +500,9 @@ static void verilate(const string& argString) {
     UINFO(1, "Option --verilate: Start Verilation\n");
 
     // Can we skip doing everything if times are ok?
-    V3File::addSrcDepend(v3Global.opt.bin());
+    if (!v3Global.opt.copyRuntime()) {
+        V3File::addSrcDepend(v3Global.opt.bin());
+    }
     if (v3Global.opt.skipIdentical().isTrue()
         && V3File::checkTimes(
             v3Global.opt.makeDir() + "/" + v3Global.opt.prefix() + "__verFiles.dat", argString)) {
@@ -554,6 +556,10 @@ static void verilate(const string& argString) {
     if (v3Global.opt.skipIdentical().isTrue() || v3Global.opt.makeDepend().isTrue()) {
         V3File::writeTimes(v3Global.opt.makeDir() + "/" + v3Global.opt.prefix() + "__verFiles.dat",
                            argString);
+    }
+
+    if (v3Global.opt.copyRuntime()) {
+        V3File::copyRuntimeFiles();
     }
 
     // Final writing shouldn't throw warnings, but...

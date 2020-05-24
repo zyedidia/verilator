@@ -69,6 +69,11 @@ public:
     // Directory utilities
     static void createMakeDirFor(const string& filename);
     static void createMakeDir();
+
+    // Copy files
+    static void copyFile(const string& from, const string& to);
+    static void copyFiles(const string& from, const string& to, const char* files[]);
+    static void copyRuntimeFiles();
 };
 
 //============================================================================

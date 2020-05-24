@@ -282,6 +282,7 @@ detailed descriptions in L</"VERILATION ARGUMENTS"> for more information.
     --make <build-tool>         Generate scripts for specified build tool
     --compiler <compiler-name>  Tune for specified C++ compiler
     --converge-limit <loops>    Tune convergence settle time
+    --copy-runtime              Copy runtime library files to output
     --coverage                  Enable all coverage
     --coverage-line             Enable line coverage
     --coverage-toggle           Enable toggle coverage
@@ -638,6 +639,10 @@ functions to avoid error C1061.
 
 Rarely needed.  Specifies the maximum number of runtime iterations before
 creating a model failed to converge error.  Defaults to 100.
+
+=item --copy-runtime
+
+Copy runtime files.
 
 =item --coverage
 

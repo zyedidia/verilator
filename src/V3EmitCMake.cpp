@@ -93,8 +93,13 @@ class CMakeEmitter {
         *of << "\n### Constants...\n";
         cmake_set(*of, "PERL", deslash(V3Options::getenvPERL()), "FILEPATH",
                   "Perl executable (from $PERL)");
-        cmake_set(*of, "VERILATOR_ROOT", deslash(V3Options::getenvVERILATOR_ROOT()), "PATH",
-                  "Path to Verilator kit (from $VERILATOR_ROOT)");
+        if (v3Global.opt.copyRuntime()) {
+            cmake_set(*of, "VERILATOR_ROOT", "./vlt-runtime", "PATH",
+                      "Path to Verilator kit (from $VERILATOR_ROOT)");
+        } else {
+            cmake_set(*of, "VERILATOR_ROOT", deslash(V3Options::getenvVERILATOR_ROOT()), "PATH",
+                      "Path to Verilator kit (from $VERILATOR_ROOT)");
+        }
 
         *of << "\n### Compiler flags...\n";
 
