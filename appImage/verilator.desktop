@@ -1,0 +1,6 @@
+[Desktop Entry]
+Name=Verilator
+Exec=verilator
+Icon=verilator
+Type=Application
+Categories=Utility;

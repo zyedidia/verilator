@@ -1,0 +1,10 @@
+#!/bin/bash -e
+
+SELF=$(readlink -f "$0")
+HERE=${SELF%/*}
+export PATH="${HERE}/usr/bin/:${HERE}/usr/sbin/:${HERE}/usr/games/:${HERE}/bin/:${HERE}/sbin/${PATH:+:$PATH}"
+export VERILATOR_ROOT=${HERE}/usr/share/verilator
+export VERILATOR_BIN=../../bin/verilator_bin
+
+EXEC=$(grep -e '^Exec=.*' "${HERE}"/*.desktop | head -n 1 | cut -d "=" -f 2 | cut -d " " -f 1)
+exec "${EXEC}" "$@"
