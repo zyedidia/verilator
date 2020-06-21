@@ -122,6 +122,7 @@ public:
         VARHIDDEN,      // Hiding variable
         WIDTH,          // Width mismatch
         WIDTHCONCAT,    // Unsized numbers/parameters in concatenations
+        WIDTHEXACT,     // Expect exact widths
         _ENUM_MAX
         // ***Add new elements below also***
     };
@@ -165,7 +166,7 @@ public:
             "UNDRIVEN", "UNOPT", "UNOPTFLAT", "UNOPTTHREADS",
             "UNPACKED", "UNSIGNED", "UNUSED",
             "USERERROR", "USERFATAL", "USERINFO", "USERWARN",
-            "VARHIDDEN", "WIDTH", "WIDTHCONCAT",
+            "VARHIDDEN", "WIDTH", "WIDTHCONCAT", "WIDTHEXACT",
             " MAX"
         };
         // clang-format on
@@ -200,7 +201,8 @@ public:
         return (m_e == ASSIGNDLY  // More than style, but for backward compatibility
                 || m_e == BLKSEQ || m_e == DEFPARAM || m_e == DECLFILENAME || m_e == IMPORTSTAR
                 || m_e == INCABSPATH || m_e == PINCONNECTEMPTY || m_e == PINNOCONNECT
-                || m_e == SYNCASYNCNET || m_e == UNDRIVEN || m_e == UNUSED || m_e == VARHIDDEN);
+                || m_e == SYNCASYNCNET || m_e == UNDRIVEN || m_e == UNUSED || m_e == VARHIDDEN
+                || m_e == WIDTHEXACT);
     }
 };
 inline bool operator==(const V3ErrorCode& lhs, const V3ErrorCode& rhs) {
