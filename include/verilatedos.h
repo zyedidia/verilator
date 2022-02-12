@@ -442,8 +442,8 @@ using ssize_t = uint32_t;  ///< signed size_t; returned from read()
 # define VL_TRUNC(n) (((n) < 0) ? std::ceil((n)) : std::floor((n)))
 # define VL_ROUND(n) (((n) < 0) ? std::ceil((n)-0.5) : std::floor((n) + 0.5))
 #else
-# define VL_TRUNC(n) std::trunc(n)
-# define VL_ROUND(n) std::round(n)
+# define VL_TRUNC(n) trunc(n)
+# define VL_ROUND(n) round(n)
 #endif
 
 //=========================================================================

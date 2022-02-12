@@ -613,10 +613,10 @@ double VL_ITOR_D_W(int lbits, const WDataInP lwp) VL_PURE {
     const EData ihi = lwp[ms_word];
     const EData imid = lwp[ms_word - 1];
     const EData ilo = lwp[ms_word - 2];
-    const double hi = static_cast<double>(ihi) * std::exp2(2 * VL_EDATASIZE);
-    const double mid = static_cast<double>(imid) * std::exp2(VL_EDATASIZE);
+    const double hi = static_cast<double>(ihi) * exp2(2 * VL_EDATASIZE);
+    const double mid = static_cast<double>(imid) * exp2(VL_EDATASIZE);
     const double lo = static_cast<double>(ilo);
-    const double d = (hi + mid + lo) * std::exp2(VL_EDATASIZE * (ms_word - 2));
+    const double d = (hi + mid + lo) * exp2(VL_EDATASIZE * (ms_word - 2));
     return d;
 }
 double VL_ISTOR_D_W(int lbits, const WDataInP lwp) VL_PURE {
