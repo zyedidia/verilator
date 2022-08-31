@@ -411,10 +411,8 @@ AC_SUBST(CFG_LDFLAGS_DEBUG)
 AS_IF([test "x$TRAVIS_COMPILER" != xclang], [_MY_CXX_CHECK_OPT(CFG_CXXFLAGS_NO_UNUSED,-faligned-new)])
 CFG_CXX_FLAGS_CMAKE="-faligned-new"
 m4_foreach([cflag],[
-        [-fbracket-depth=4096],
         [-fcf-protection=none],
         [-mno-cet],
-        [-Qunused-arguments],
         [-Wno-bool-operation],
         [-Wno-tautological-bitwise-compare],
         [-Wno-parentheses-equality],
