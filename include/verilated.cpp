@@ -2851,11 +2851,6 @@ void Verilated::overWidthError(const char* signame) VL_MT_SAFE {
 }
 
 void Verilated::mkdir(const char* dirname) VL_MT_UNSAFE {
-#if defined(_WIN32) || defined(__MINGW32__)
-    ::mkdir(dirname);
-#else
-    ::mkdir(dirname, 0777);
-#endif
 }
 
 void Verilated::quiesce() VL_MT_SAFE {
